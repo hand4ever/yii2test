@@ -17,11 +17,27 @@ $config = [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
+        'redis' => [
+            'class'    => '\Redis',
+            'hostname' => 'localhost',
+            'port'     => 6379,
+            'database' => 0,
+        ],
         'log' => [
+            'traceLevel' => YII_DEBUG ? 3 : 0,
+            'flushInterval' => 1,
             'targets' => [
                 [
                     'class' => 'yii\log\FileTarget',
                     'levels' => ['error', 'warning'],
+                ],
+                [
+                    'class' => 'yii\log\FileTarget',
+                    'exportInterval' => 1,
+                    'levels' => ['error', 'warning','info'],
+                    'categories' => ['test'],
+                    'logVars' => ['*'],
+                    'logFile' => '@app/runtime/logs/test.log',
                 ],
             ],
         ],

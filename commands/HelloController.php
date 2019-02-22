@@ -7,6 +7,7 @@
 
 namespace app\commands;
 
+use Yii;
 use yii\console\Controller;
 use yii\console\ExitCode;
 
@@ -27,6 +28,21 @@ class HelloController extends Controller
      */
     public function actionIndex($message = 'hello world')
     {
+        $redis = Yii::$app->redis;
+        $redis->set('aaa', 1111);
+
+        var_dump($redis->get('aaa'));
+
+        $r = new \Redis;
+        $r->connect('localhost', 6379);
+
+
+        var_dump($r->get('aaa'));
+//        var_dump($redis instanceof Redis);
+//        Yii::info('user 3333', 'test');
+        // Yii::trace("222 ....", 'test');
+        // Yii::error("3 ....", 'test');
+        // Yii::warning("4 ....", 'test');
         echo $message . "\n";
 
         return ExitCode::OK;
